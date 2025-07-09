@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediCare Pro - Hospital Management System</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="medical-cross">
+                <div class="cross-vertical"></div>
+                <div class="cross-horizontal"></div>
+            </div>
+            <h2>MediCare Pro</h2>
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
+            <p>Initializing Hospital Management System...</p>
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <i class="fas fa-hospital-user"></i>
+                <span>MediCare Pro</span>
+            </div>
+            <button class="sidebar-toggle" id="sidebarToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <ul>
+                <li class="nav-item active">
+                    <a href="#" data-section="dashboard" class="nav-link">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" data-section="patients" class="nav-link">
+                        <i class="fas fa-users"></i>
+                        <span>Patients</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" data-section="doctors" class="nav-link">
+                        <i class="fas fa-user-md"></i>
+                        <span>Doctors</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" data-section="appointments" class="nav-link">
+                        <i class="fas fa-calendar-check"></i>
+                        <span>Appointments</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" data-section="medical-reports" class="nav-link">
+                        <i class="fas fa-file-medical"></i>
+                        <span>Medical Reports</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" data-section="billing" class="nav-link">
+                        <i class="fas fa-receipt"></i>
+                        <span>Billing</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" data-section="analytics" class="nav-link">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Analytics</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-left">
+                <button class="sidebar-toggle-main" id="sidebarToggleMain">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h1 id="pageTitle">Dashboard</h1>
+            </div>
+            <div class="header-right">
+                <div class="search-box">
+                    <input type="text" placeholder="Search patients, doctors..." id="globalSearch">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="header-actions">
+                    <button class="action-btn" id="notificationBtn">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge">3</span>
+                    </button>
+                    <div class="user-profile">
+                        <img src="assets/images/default-avatar.png" alt="User" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22><circle cx=%2212%22 cy=%228%22 r=%223%22 fill=%22%23666%22/><path d=%22M12 14c-4 0-7 2-7 5v1h14v-1c0-3-3-5-7-5z%22 fill=%22%23666%22/></svg>'">
+                        <span>Dr. Admin</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Dashboard Section -->
+        <section id="dashboard-section" class="content-section active">
+            <div class="dashboard-stats" data-aos="fade-up">
+                <div class="stat-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="stat-icon patients">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="totalPatients">0</h3>
+                        <p>Total Patients</p>
+                        <span class="stat-change positive">+12% this month</span>
+                    </div>
+                </div>
+                
+                <div class="stat-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="stat-icon doctors">
+                        <i class="fas fa-user-md"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="totalDoctors">0</h3>
+                        <p>Available Doctors</p>
+                        <span class="stat-change positive">+3 new</span>
+                    </div>
+                </div>
+                
+                <div class="stat-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="stat-icon appointments">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="todayAppointments">0</h3>
+                        <p>Today's Appointments</p>
+                        <span class="stat-change neutral">On schedule</span>
+                    </div>
+                </div>
+                
+                <div class="stat-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="stat-icon revenue">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="totalRevenue">$0</h3>
+                        <p>Monthly Revenue</p>
+                        <span class="stat-change positive">+18% this month</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-grid">
+                <div class="dashboard-card recent-appointments" data-aos="fade-up" data-aos-delay="500">
+                    <div class="card-header">
+                        <h3>Recent Appointments</h3>
+                        <a href="#" class="view-all">View All</a>
+                    </div>
+                    <div class="card-content">
+                        <div id="recentAppointmentsList" class="appointments-list">
+                            <!-- Appointments will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-card upcoming-appointments" data-aos="fade-up" data-aos-delay="600">
+                    <div class="card-header">
+                        <h3>Upcoming Appointments</h3>
+                        <a href="#" class="view-all">View All</a>
+                    </div>
+                    <div class="card-content">
+                        <div id="upcomingAppointmentsList" class="appointments-list">
+                            <!-- Upcoming appointments will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-card quick-actions" data-aos="fade-up" data-aos-delay="700">
+                    <div class="card-header">
+                        <h3>Quick Actions</h3>
+                    </div>
+                    <div class="card-content">
+                        <div class="quick-actions-grid">
+                            <button class="quick-action-btn" data-action="add-patient">
+                                <i class="fas fa-user-plus"></i>
+                                <span>Add Patient</span>
+                            </button>
+                            <button class="quick-action-btn" data-action="schedule-appointment">
+                                <i class="fas fa-calendar-plus"></i>
+                                <span>Schedule Appointment</span>
+                            </button>
+                            <button class="quick-action-btn" data-action="generate-report">
+                                <i class="fas fa-file-medical-alt"></i>
+                                <span>Generate Report</span>
+                            </button>
+                            <button class="quick-action-btn" data-action="create-invoice">
+                                <i class="fas fa-file-invoice-dollar"></i>
+                                <span>Create Invoice</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-card system-status" data-aos="fade-up" data-aos-delay="800">
+                    <div class="card-header">
+                        <h3>System Status</h3>
+                    </div>
+                    <div class="card-content">
+                        <div class="status-item">
+                            <div class="status-indicator online"></div>
+                            <span>Database Connection</span>
+                            <span class="status-text">Online</span>
+                        </div>
+                        <div class="status-item">
+                            <div class="status-indicator online"></div>
+                            <span>Payment Gateway</span>
+                            <span class="status-text">Active</span>
+                        </div>
+                        <div class="status-item">
+                            <div class="status-indicator warning"></div>
+                            <span>Backup System</span>
+                            <span class="status-text">Scheduled</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Patients Section -->
+        <section id="patients-section" class="content-section">
+            <div class="section-header">
+                <h2>Patient Management</h2>
+                <div class="section-actions">
+                    <button class="btn btn-primary" id="addPatientBtn">
+                        <i class="fas fa-plus"></i>
+                        Add Patient
+                    </button>
+                    <button class="btn btn-secondary" id="exportPatientsBtn">
+                        <i class="fas fa-download"></i>
+                        Export
+                    </button>
+                </div>
+            </div>
+
+            <div class="filters-section">
+                <div class="search-filters">
+                    <input type="text" placeholder="Search patients..." id="patientSearch" class="search-input">
+                    <select id="genderFilter" class="filter-select">
+                        <option value="">All Genders</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="data-table-container">
+                <table class="data-table" id="patientsTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Gender</th>
+                            <th>Date of Birth</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="patientsTableBody">
+                        <!-- Patient data will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Other sections will be similar but I'll focus on the key ones for now -->
+        <!-- Doctors Section -->
+        <section id="doctors-section" class="content-section">
+            <div class="section-header">
+                <h2>Doctor Management</h2>
+                <div class="section-actions">
+                    <button class="btn btn-primary" id="addDoctorBtn">
+                        <i class="fas fa-plus"></i>
+                        Add Doctor
+                    </button>
+                </div>
+            </div>
+
+            <div class="filters-section">
+                <div class="search-filters">
+                    <input type="text" placeholder="Search doctors..." id="doctorSearch" class="search-input">
+                    <select id="specializationFilter" class="filter-select">
+                        <option value="">All Specializations</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="data-table-container">
+                <table class="data-table" id="doctorsTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Specialization</th>
+                            <th>Department</th>
+                            <th>Experience</th>
+                            <th>Available</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="doctorsTableBody">
+                        <!-- Doctor data will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Medical Reports Section -->
+        <section id="medical-reports-section" class="content-section">
+            <div class="section-header">
+                <h2>Medical Reports</h2>
+                <div class="section-actions">
+                    <button class="btn btn-primary" id="generateRandomReportBtn">
+                        <i class="fas fa-random"></i>
+                        Generate Random Report
+                    </button>
+                    <button class="btn btn-secondary" id="createReportBtn">
+                        <i class="fas fa-plus"></i>
+                        Create Report
+                    </button>
+                </div>
+            </div>
+
+            <div class="data-table-container">
+                <table class="data-table" id="reportsTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Patient</th>
+                            <th>Doctor</th>
+                            <th>Type</th>
+                            <th>Title</th>
+                            <th>Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="reportsTableBody">
+                        <!-- Medical reports will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Billing Section -->
+        <section id="billing-section" class="content-section">
+            <div class="section-header">
+                <h2>Billing & Invoices</h2>
+                <div class="section-actions">
+                    <button class="btn btn-primary" id="generateRandomInvoiceBtn">
+                        <i class="fas fa-random"></i>
+                        Generate Random Invoice
+                    </button>
+                    <button class="btn btn-secondary" id="createInvoiceBtn">
+                        <i class="fas fa-plus"></i>
+                        Create Invoice
+                    </button>
+                </div>
+            </div>
+
+            <div class="billing-stats">
+                <div class="billing-card">
+                    <h3>Total Outstanding</h3>
+                    <p id="totalOutstanding">$0.00</p>
+                </div>
+                <div class="billing-card">
+                    <h3>Monthly Revenue</h3>
+                    <p id="monthlyRevenue">$0.00</p>
+                </div>
+                <div class="billing-card">
+                    <h3>Pending Invoices</h3>
+                    <p id="pendingInvoices">0</p>
+                </div>
+            </div>
+
+            <div class="coming-soon-card" data-aos="fade-up">
+                <div class="coming-soon-content">
+                    <h3>Advanced Billing Features</h3>
+                    <p>Enhanced billing capabilities including automated recurring billing, payment plans, insurance integration, and advanced financial reporting are coming soon!</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check"></i> Automated recurring billing</li>
+                        <li><i class="fas fa-check"></i> Payment plan management</li>
+                        <li><i class="fas fa-check"></i> Insurance claim processing</li>
+                        <li><i class="fas fa-check"></i> Advanced financial reports</li>
+                        <li><i class="fas fa-check"></i> Multi-currency support</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="data-table-container">
+                <table class="data-table" id="invoicesTable">
+                    <thead>
+                        <tr>
+                            <th>Invoice #</th>
+                            <th>Patient</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="invoicesTableBody">
+                        <!-- Invoices will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Analytics Section -->
+        <section id="analytics-section" class="content-section">
+            <div class="section-header">
+                <h2>Analytics & Reporting</h2>
+            </div>
+
+            <div class="coming-soon-card" data-aos="fade-up">
+                <div class="coming-soon-content">
+                    <h3>Advanced Analytics & Reporting</h3>
+                    <p>Comprehensive analytics dashboard with real-time insights, predictive analytics, and detailed reporting capabilities are under development!</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-chart-line"></i> Real-time dashboard analytics</li>
+                        <li><i class="fas fa-chart-pie"></i> Patient demographics analysis</li>
+                        <li><i class="fas fa-chart-bar"></i> Revenue and financial reports</li>
+                        <li><i class="fas fa-brain"></i> Predictive analytics for patient care</li>
+                        <li><i class="fas fa-file-export"></i> Customizable report generation</li>
+                        <li><i class="fas fa-clock"></i> Appointment trend analysis</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="analytics-preview">
+                <div class="chart-placeholder" data-aos="fade-up" data-aos-delay="200">
+                    <h4>Patient Registration Trends</h4>
+                    <div class="placeholder-chart">
+                        <i class="fas fa-chart-line"></i>
+                        <p>Interactive charts coming soon</p>
+                    </div>
+                </div>
+                <div class="chart-placeholder" data-aos="fade-up" data-aos-delay="400">
+                    <h4>Revenue Analytics</h4>
+                    <div class="placeholder-chart">
+                        <i class="fas fa-chart-bar"></i>
+                        <p>Financial insights coming soon</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Modals -->
+    <!-- Patient Modal -->
+    <div id="patientModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="patientModalTitle">Add Patient</h3>
+                <button class="modal-close" onclick="closeModal('patientModal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="patientForm" class="modal-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="firstName">First Name *</label>
+                        <input type="text" id="firstName" name="firstName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Last Name *</label>
+                        <input type="text" id="lastName" name="lastName" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone *</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="dateOfBirth">Date of Birth</label>
+                        <input type="date" id="dateOfBirth" name="dateOfBirth">
+                    </div>
+                    <div class="form-group">
+                        <label for="gender">Gender</label>
+                        <select id="gender" name="gender">
+                            <option value="">Select Gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <textarea id="address" name="address" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="emergencyContact">Emergency Contact</label>
+                    <input type="tel" id="emergencyContact" name="emergencyContact">
+                </div>
+                <div class="form-group">
+                    <label for="medicalHistory">Medical History</label>
+                    <textarea id="medicalHistory" name="medicalHistory" rows="4"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('patientModal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Patient</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/modals.js"></script>
+    <script src="js/navigation.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/patients.js"></script>
+    <script src="js/doctors.js"></script>
+    <script src="js/reports.js"></script>
+    <script src="js/billing.js"></script>
+    <script src="js/app.js"></script>
+
+    <!-- Background Video -->
+    <div class="background-video-container">
+        <video autoplay muted loop id="backgroundVideo">
+            <source src="assets/videos/hospital-bg.mp4" type="video/mp4" onerror="this.style.display='none'">
+            <!-- Fallback for when video doesn't load -->
+        </video>
+    </div>
+</body>
+</html>
